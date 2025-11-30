@@ -35,7 +35,7 @@ const App = () => {
           style={{
             ["--pulse-duration" as any]: "4",
             animation: "float 8s ease-in-out infinite",
-            animationDelay: "2s"
+            ["animationDelay" as any]: "2s"
           }}
         />
         <div
@@ -43,7 +43,7 @@ const App = () => {
           style={{
             ["--pulse-duration" as any]: "4",
             animation: "float 7s ease-in-out infinite",
-            animationDelay: "4s"
+            ["animationDelay" as any]: "4s"
           }}
         />
       </div>
@@ -60,7 +60,7 @@ const App = () => {
 
           return (
             <div
-              key={i}
+              {...{ key: i }}
               class="absolute rounded-full bg-pink-300/20 animate-drift animate-pulse-custom"
               style={{
                 width: `${size}px`,
@@ -69,7 +69,7 @@ const App = () => {
                 top: `${Math.random() * 100}%`,
                 ["--drift-duration" as any]: `${duration}`,
                 ["--pulse-duration" as any]: `${pulseDuration}`,
-                animationDelay: `${delay}s`
+                ["animationDelay" as any]: `${delay}s`
               }}
             />
           );
@@ -95,7 +95,7 @@ const App = () => {
           </h1>
         </div>
 
-        <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-12 max-w-md mx-auto leading-relaxed px-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+        <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-12 max-w-md mx-auto leading-relaxed px-4 animate-fade-in-up" style={{ ["animationDelay" as any]: "200ms" }}>
           Welcome to my digital space. Explore my thoughts and projects below.
         </p>
 
@@ -129,12 +129,12 @@ const App = () => {
         </div>
 
         {/* 底部装饰 */}
-        <div class="mt-12 sm:mt-16 flex justify-center items-center gap-2 sm:gap-3 animate-fade-in-up" style={{ animationDelay: "400ms" }}>
+        <div class="mt-12 sm:mt-16 flex justify-center items-center gap-2 sm:gap-3 animate-fade-in-up" style={{ ["animationDelay" as any]: "400ms" }}>
           <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse-glow" />
           <div class="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-pink-300 to-purple-300" />
-          <div class="w-2 h-2 bg-purple-300 rounded-full animate-pulse-glow" style={{ animationDelay: "500ms" }} />
+          <div class="w-2 h-2 bg-purple-300 rounded-full animate-pulse-glow" style={{ ["animationDelay" as any]: "500ms" }} />
           <div class="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-purple-300 to-pink-300" />
-          <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse-glow" style={{ animationDelay: "1000ms" }} />
+          <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse-glow" style={{ ["animationDelay" as any]: "1000ms" }} />
         </div>
       </div>
 
