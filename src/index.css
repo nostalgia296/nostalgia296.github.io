@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+  /* 自定义动画配置 */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-medium: float 7s ease-in-out infinite;
+  --animate-drift: drift calc(var(--drift-duration, 10) * 1s) ease-in-out infinite;
+  --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+  --animate-pulse-custom: pulse calc(var(--pulse-duration, 4) * 1s) ease-in-out infinite;
+  --animate-spin-float: spin calc(var(--spin-duration, 20) * 1s) linear infinite, float 6s ease-in-out infinite;
+  --animate-spin-float-reverse: spin calc(var(--spin-duration, 15) * 1s) linear infinite reverse, float 8s ease-in-out infinite;
+
+  /* 淡入延迟 */
+  --animation-delay-100: 200ms;
+  --animation-delay-200: 400ms;
+}
+
 @layer base {
   body {
     @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
@@ -12,12 +29,65 @@
 }
 
 @layer utilities {
+  /* 浮动动画 */
   @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
   }
 
+  /* 漂移动画 */
+  @keyframes drift {
+    0%, 100% {
+      transform: translateX(0) translateY(0);
+    }
+    25% {
+      transform: translateX(20px) translateY(-10px);
+    }
+    50% {
+      transform: translateX(-10px) translateY(5px);
+    }
+    75% {
+      transform: translateX(15px) translateY(-5px);
+    }
+  }
+
+  /* 淡入上升动画 */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 脉冲发光动画 */
+  @keyframes pulseGlow {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(249, 168, 212, 0.7);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.2);
+      box-shadow: 0 0 20px 10px rgba(249, 168, 212, 0);
+    }
+  }
+
+  /* 发光文字动画 */
+  @keyframes glow {
+    0%, 100% { opacity: 0.5; filter: blur(8px); }
+    50% { opacity: 0.9; filter: blur(12px); }
+  }
+
+  /* 旧的动画（保留以兼容） */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -29,12 +99,19 @@
     }
   }
 
-  @keyframes glow {
-    0% { box-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(96, 165, 250, 0.8); }
-    100% { box-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
+  /* 自定义工具类 */
+  .text-gradient-pink-purple {
+    background: linear-gradient(45deg, var(--color-pink-600), var(--color-purple-600));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
+  .backdrop-blur-custom {
+    backdrop-filter: blur(12px);
+  }
+
+  /* 旧的工具类（保留以兼容） */
   .animate-fadeIn {
     animation: fadeIn 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   }

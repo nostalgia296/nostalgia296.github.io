@@ -1,53 +1,109 @@
+import { createSignal, onMount, onCleanup } from 'solid-js';
+
 const App = () => {
+  const [isSmallScreen, setIsSmallScreen] = createSignal(false);
+
+  onMount(() => {
+    // 检查屏幕尺寸
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 640);
+    };
+
+    // 立即检查
+    checkScreenSize();
+    // 监听窗口大小变化
+    window.addEventListener('resize', checkScreenSize);
+
+    onCleanup(() => {
+      window.removeEventListener('resize', checkScreenSize);
+    });
+  });
   return (
     <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50">
       {/* 背景装饰图案 */}
       <div class="absolute inset-0 opacity-30">
-        <div class="absolute top-10 left-10 w-32 h-32 sm:w-64 sm:h-64 bg-pink-200 rounded-full filter blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-10 right-10 w-48 h-48 sm:w-96 sm:h-96 bg-purple-200 rounded-full filter blur-3xl animate-pulse" style={{"animation-delay": '2s'}}></div>
-        <div class="absolute top-1/2 left-1/3 w-40 h-40 sm:w-80 sm:h-80 bg-rose-200 rounded-full filter blur-3xl animate-pulse" style={{"animation-delay": '4s'}}></div>
+        <div
+          class="absolute top-10 left-10 w-32 h-32 sm:w-64 sm:h-64 bg-pink-200 rounded-full filter blur-3xl animate-pulse-custom"
+          style={{
+            // 使用 CSS 变量控制动画参数
+            ["--pulse-duration" as any]: "4",
+            animation: "float 6s ease-in-out infinite"
+          }}
+        />
+        <div
+          class="absolute bottom-10 right-10 w-48 h-48 sm:w-96 sm:h-96 bg-purple-200 rounded-full filter blur-3xl animate-pulse-custom"
+          style={{
+            ["--pulse-duration" as any]: "4",
+            animation: "float 8s ease-in-out infinite",
+            animationDelay: "2s"
+          }}
+        />
+        <div
+          class="absolute top-1/2 left-1/3 w-40 h-40 sm:w-80 sm:h-80 bg-rose-200 rounded-full filter blur-3xl animate-pulse-custom"
+          style={{
+            ["--pulse-duration" as any]: "4",
+            animation: "float 7s ease-in-out infinite",
+            animationDelay: "4s"
+          }}
+        />
       </div>
-      
-      {/* 装饰性圆点 - 移动端减少数量 */}
-      <div class="absolute inset-0">
-        {Array.from({ length: window.innerWidth < 640 ? 15 : 30 }).map((_, _i) => (
-          <div
-            class="absolute rounded-full bg-pink-300/20 animate-pulse"
-            style={{
-              width: `${Math.random() * (window.innerWidth < 640 ? 40 : 80) + 20}px`,
-              height: `${Math.random() * (window.innerWidth < 640 ? 40 : 80) + 20}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              "animation-delay": `${Math.random() * 5}s`,
-              "animation-duration": `${Math.random() * 4 + 3}s`
-            }}
-          />
-        ))}
+
+      {/* 装饰性圆点 */}
+      <div class="absolute inset-0 pointer-events-none">
+        {Array.from({ length: isSmallScreen() ? 15 : 30 }).map((_, i) => {
+          const size = isSmallScreen()
+            ? Math.random() * 40 + 20
+            : Math.random() * 80 + 20;
+          const duration = Math.random() * 10 + 10;
+          const pulseDuration = Math.random() * 3 + 2;
+          const delay = Math.random() * 5;
+
+          return (
+            <div
+              key={i}
+              class="absolute rounded-full bg-pink-300/20 animate-drift animate-pulse-custom"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                ["--drift-duration" as any]: `${duration}`,
+                ["--pulse-duration" as any]: `${pulseDuration}`,
+                animationDelay: `${delay}s`
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* 主要内容容器 */}
-      <div class="text-center rounded-3xl p-6 sm:p-16 bg-white/90 backdrop-blur-md border border-pink-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 relative z-10 group mx-4 sm:mx-8 max-w-3xl w-full">
-        
+      <div class="text-center rounded-3xl p-6 sm:p-16 bg-white/90 backdrop-blur-custom border border-pink-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 relative z-10 group mx-4 sm:mx-8 max-w-3xl w-full animate-fade-in-up">
+
         {/* 顶部装饰带 */}
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-300 via-purple-300 to-pink-300 rounded-t-3xl"></div>
-        
+        <div class="absolute top-0 left-0 right-0 h-6 bg-gradient-to-r from-pink-200 to-purple-200 opacity-40 blur-lg rounded-t-3xl" />
+
         {/* 标题区域 */}
         <div class="mb-6 sm:mb-8 relative">
-          <div class="absolute -inset-2 bg-gradient-to-r from-pink-200 to-purple-200 rounded-2xl blur-lg opacity-50"></div>
-          <h1 class="relative text-4xl sm:text-5xl md:text-7xl font-black px-6 sm:px-10 py-4 sm:py-8 rounded-2xl bg-white/95 backdrop-blur-sm border border-pink-200/50 inline-block hover:scale-105 transition-all duration-300">
-            <span class="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent drop-shadow-md">Hello, I'm Lai</span>
+          <div class="absolute -inset-2 bg-gradient-to-r from-pink-200 to-purple-200 rounded-2xl blur-lg opacity-50" />
+          <h1 class="relative text-4xl sm:text-5xl md:text-7xl font-black px-6 sm:px-10 py-4 sm:py-8 inline-block hover:scale-105 transition-all duration-300">
+            <span
+              class="glowing-text text-gradient-pink-purple drop-shadow-md"
+              style={{ ["--text-content" as any]: "'Hello, I\'m Lai'" }}
+            >
+              Hello, I'm Lai
+            </span>
           </h1>
         </div>
-        
-        <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-12 max-w-md mx-auto leading-relaxed px-4">
+
+        <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-12 max-w-md mx-auto leading-relaxed px-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
           Welcome to my digital space. Explore my thoughts and projects below.
         </p>
-        
-        {/* 按钮区域 - 移动端优化 */}
+
+        {/* 按钮区域 */}
         <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-6 sm:mt-8 px-4">
           <a
             href="https://nostalgia296.github.io/blog"
-            class="text-base sm:text-lg text-white font-medium transition-all duration-300 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 shadow-lg hover:shadow-xl hover:shadow-pink-300/50 group relative overflow-hidden w-full sm:w-auto min-h-[52px] flex items-center justify-center"
+            class="text-base sm:text-lg text-white font-medium transition-all duration-300 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 shadow-lg hover:shadow-xl hover:shadow-pink-300/50 group relative overflow-hidden w-full sm:w-auto min-h-[52px] flex items-center justify-center hover:-translate-y-0.5"
           >
             <span class="relative z-10 flex items-center justify-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -55,12 +111,12 @@ const App = () => {
               </svg>
               Blog
             </span>
-            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
           </a>
-          
+
           <a
             href="http://github.com/nostalgia296"
-            class="text-base sm:text-lg text-white font-medium transition-all duration-300 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600 shadow-lg hover:shadow-xl hover:shadow-purple-300/50 group relative overflow-hidden w-full sm:w-auto min-h-[52px] flex items-center justify-center"
+            class="text-base sm:text-lg text-white font-medium transition-all duration-300 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600 shadow-lg hover:shadow-xl hover:shadow-purple-300/50 group relative overflow-hidden w-full sm:w-auto min-h-[52px] flex items-center justify-center hover:-translate-y-0.5"
           >
             <span class="relative z-10 flex items-center justify-center gap-2">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -68,25 +124,35 @@ const App = () => {
               </svg>
               GitHub
             </span>
-            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
           </a>
         </div>
-        
+
         {/* 底部装饰 */}
-        <div class="mt-12 sm:mt-16 flex justify-center items-center gap-2 sm:gap-3">
-          <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse"></div>
-          <div class="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-pink-300 to-purple-300"></div>
-          <div class="w-2 h-2 bg-purple-300 rounded-full animate-pulse" style={{"animation-delay": '0.5s'}}></div>
-          <div class="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-purple-300 to-pink-300"></div>
-          <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse" style={{"animation-delay": '1s'}}></div>
+        <div class="mt-12 sm:mt-16 flex justify-center items-center gap-2 sm:gap-3 animate-fade-in-up" style={{ animationDelay: "400ms" }}>
+          <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse-glow" />
+          <div class="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-pink-300 to-purple-300" />
+          <div class="w-2 h-2 bg-purple-300 rounded-full animate-pulse-glow" style={{ animationDelay: "500ms" }} />
+          <div class="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-purple-300 to-pink-300" />
+          <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse-glow" style={{ animationDelay: "1000ms" }} />
         </div>
       </div>
 
-      {/* 浮动装饰元素 - 移动端调整大小和位置 */}
-      <div class="absolute top-10 right-10 sm:top-20 sm:right-20 w-12 h-12 sm:w-20 sm:h-20 border-4 border-pink-300/30 rounded-full animate-spin" style={{"animation-duration": '20s'}}></div>
-      <div class="absolute bottom-10 left-10 sm:bottom-20 sm:left-20 w-10 h-10 sm:w-16 sm:h-16 border-4 border-purple-300/30 rounded-full animate-spin" style={{"animation-duration": '15s', "animation-direction": 'reverse'}}></div>
+      {/* 浮动装饰元素 */}
+      <div
+        class="absolute top-10 right-10 sm:top-20 sm:right-20 w-12 h-12 sm:w-20 sm:h-20 border-4 border-pink-300/30 rounded-full animate-spin-float"
+        style={{
+          ["--spin-duration" as any]: "20"
+        }}
+      />
+      <div
+        class="absolute bottom-10 left-10 sm:bottom-20 sm:left-20 w-10 h-10 sm:w-16 sm:h-16 border-4 border-purple-300/30 rounded-full animate-spin-float-reverse"
+        style={{
+          ["--spin-duration" as any]: "15"
+        }}
+      />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
