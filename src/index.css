@@ -109,6 +109,32 @@
 
   .backdrop-blur-custom {
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    -moz-backdrop-filter: blur(12px);
+    -ms-backdrop-filter: blur(12px);
+  }
+
+  /* 发光效果 - 浏览器兼容优化 */
+  .glow-effect {
+    background: linear-gradient(to right, var(--color-pink-200), var(--color-purple-200));
+    opacity: 0.5;
+    /* 模糊效果浏览器兼容 */
+    -webkit-filter: blur(16px);
+    -moz-filter: blur(16px);
+    -ms-filter: blur(16px);
+    filter: blur(16px);
+    /* 硬件加速 */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+  }
+
+  /* backdrop-filter 增强兼容性 */
+  .backdrop-blur-custom {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    -moz-backdrop-filter: blur(12px);
+    -ms-backdrop-filter: blur(12px);
   }
 
   /* 旧的工具类（保留以兼容） */
@@ -118,10 +144,28 @@
 
   .animate-float {
     animation: float 4s ease-in-out infinite;
+    -webkit-animation: float 4s ease-in-out infinite;
+    -moz-animation: float 4s ease-in-out infinite;
   }
 
   .animate-glow {
     animation: glow 3s ease-in-out infinite;
+    -webkit-animation: glow 3s ease-in-out infinite;
+    -moz-animation: glow 3s ease-in-out infinite;
+  }
+
+  /* 额外的浏览器兼容性修复 */
+  .text-gradient-pink-purple {
+    background: linear-gradient(45deg, var(--color-pink-600), var(--color-purple-600));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    /* 备用方案，如果不支持 background-clip: text */
+    @supports not (-webkit-background-clip: text) {
+      color: var(--color-pink-600);
+    }
   }
 }
 

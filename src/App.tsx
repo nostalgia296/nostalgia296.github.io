@@ -91,7 +91,7 @@ const App: Component = () => {
         <div class="absolute top-0 left-0 right-0 h-6 bg-gradient-to-r from-pink-200 to-purple-200 opacity-40 blur-lg rounded-t-3xl" />
 
         <div class="mb-6 sm:mb-8 relative">
-          <div class="absolute -inset-2 bg-gradient-to-r from-pink-200 to-purple-200 rounded-2xl blur-lg opacity-50" />
+          <div class="glow-effect absolute -inset-2 rounded-2xl" />
           <h1 class="relative text-4xl sm:text-5xl md:text-7xl font-black px-6 sm:px-10 py-4 sm:py-8 inline-block hover:scale-105 transition-all duration-300">
             <span class="glowing-text text-gradient-pink-purple drop-shadow-md">Hello, I'm Lai</span>
           </h1>
