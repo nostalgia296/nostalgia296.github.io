@@ -28,7 +28,7 @@ const base = process.env.BASEURL || "/"
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://nostalgia296.github.io",
+	site: "https://laikmm.top/",
 	base: base,
 	trailingSlash: "always",
 	integrations: [
