@@ -23,6 +23,7 @@ jobs:
           npm i -g pnpm
           pnpm install 
           pnpm build
+          sudo cp CNAME dist/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
