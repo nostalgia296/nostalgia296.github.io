@@ -5,7 +5,12 @@ import MainGridLayout from "@layouts/MainGridLayout.astro"
 const config = friendLinkConfig
 ---
 
-<MainGridLayout title="友链">
-<FriendLinks friendLinks={config.links} enabled={config.enable} />
+<MainGridLayout title="友链" description="友情链接">
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full">
+            <h1 class="text-3xl font-bold mb-4 text-[var(--title-color)]">友链</h1>
+            <FriendLinks friendLinks={config.links} enabled={config.enable} />
+        </div>
+    </div>
 </MainGridLayout>
 

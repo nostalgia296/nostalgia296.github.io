@@ -11,7 +11,7 @@ lang: ''
 
 # ECH
 
-ECH可以加密**Inner ClientHello**包，所以使用ECH后可以加密sni字段，让gfw看不到sni了，利用这一点就可以免翻访问某些网站了。
+ECH可以加密**Inner ClientHello**包，所以使用ECH后可以加密sni字段，让gfw看不到sni，利用这一点就可以免翻访问某些网站了。
 
 ECH需要服务器支持，greasyfork就支持，同时还需要DoH服务器，如果用chromium系浏览器的话，设置里大概可以找到一个加密dns选项，开始选择一个就好了
 
