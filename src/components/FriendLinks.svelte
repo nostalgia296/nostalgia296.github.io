@@ -1,18 +1,18 @@
 <script lang="ts">
-	interface FriendLink {
-		name: string;
-		description: string;
-		url: string;
-		avatar: string;
-	}
+interface FriendLink {
+	name: string;
+	description: string;
+	url: string;
+	avatar: string;
+}
 
-	let {
-		friendLinks = [],
-		enabled = true,
-	}: {
-		friendLinks?: FriendLink[];
-		enabled?: boolean;
-	} = $props();
+let {
+	friendLinks = [],
+	enabled = true,
+}: {
+	friendLinks?: FriendLink[];
+	enabled?: boolean;
+} = $props();
 </script>
 
 {#if enabled && friendLinks.length > 0}
