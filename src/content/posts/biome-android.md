@@ -15,7 +15,6 @@ lang: ''
 
 按照常规rust项目交叉编译配置即可，需要注意的是需要在交叉编译前rm掉rust-toolchain.yml文件
 
-> [!TIP] TIP
 > 注: 如果交叉编译链接时也OOM了的话，可以把`.cargo/config.toml`中的`lto = true` 改成`false`,因为LTO会消耗大量内存。
 
 # 使用
