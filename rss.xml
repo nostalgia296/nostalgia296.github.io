@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>免翻访问greasyfork等网站</title><link>https://laikmm.top/posts/ech/</link><guid isPermaLink="true">https://laikmm.top/posts/ech/</guid><pubDate>Fri, 12 Dec 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;ECH&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>在termux中使用biome</title><link>https://laikmm.top/posts/biome-android/</link><guid isPermaLink="true">https://laikmm.top/posts/biome-android/</guid><pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;编译&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;biome&lt;/code&gt;官方的预构建二进制没有android用的，所以通过包管理器安装biome没有用，需要自己编译，虽然可以直接通过termux编译但是安卓设备性能有限而biome编译性能要求较高所以采用交叉编译。&lt;/p&gt;
+&lt;p&gt;按照常规rust项目交叉编译配置即可，需要注意的是需要在交叉编译前rm掉rust-toolchain.yml文件&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!TIP] TIP
+注: 如果交叉编译链接时也OOM了的话，可以把&lt;code&gt;.cargo/config.toml&lt;/code&gt;中的&lt;code&gt;lto = true&lt;/code&gt; 改成&lt;code&gt;false&lt;/code&gt;,因为LTO会消耗大量内存。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;使用&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;biome&lt;/code&gt;提供了一个环境变量来使用外部的二进制文件，所以只需要导出&lt;code&gt;BIOME_BINARY&lt;/code&gt;即可，比如biome文件放在$HOME下:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set -x BIOME_BINARY $HOME/biome
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>免翻访问greasyfork等网站</title><link>https://laikmm.top/posts/ech/</link><guid isPermaLink="true">https://laikmm.top/posts/ech/</guid><pubDate>Fri, 12 Dec 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;ECH&lt;/h1&gt;
 &lt;p&gt;ECH可以加密&lt;strong&gt;Inner ClientHello&lt;/strong&gt;包，所以使用ECH后可以加密sni字段，让gfw看不到sni，利用这一点就可以免翻访问某些网站了。&lt;/p&gt;
 &lt;p&gt;ECH需要服务器支持，greasyfork就支持，同时还需要DoH服务器，如果用chromium系浏览器的话，设置里大概可以找到一个加密dns选项，开始选择一个就好了&lt;/p&gt;
 &lt;p&gt;ECH只是加密&lt;strong&gt;Inner ClientHello&lt;/strong&gt;包,所以不是所有使用了ECH的网站都可以免翻，如果想要免翻更多网站的话，可以试试&lt;code&gt;sni伪装&lt;/code&gt;(不安全)&lt;/p&gt;
