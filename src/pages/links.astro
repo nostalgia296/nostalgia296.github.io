@@ -34,7 +34,7 @@ const techStack = [
         <div class="card-base z-10 px-9 py-6 relative w-full">
             <h2 class="text-2xl font-bold mb-2 text-[var(--title-color)]">技术栈</h2>
             <p class="text-sm text-[var(--meta-color)] mb-6">本博客项目使用的核心技术</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="flex flex-col gap-4">
                 {techStack.map((tech) => (
                     <a
                         href={tech.url}
