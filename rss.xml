@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>从源码编译Eden</title><link>https://laikmm.top/posts/eden/</link><guid isPermaLink="true">https://laikmm.top/posts/eden/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;从源码编译Eden&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>使用sui搭建vless+reality节点</title><link>https://laikmm.top/posts/sui/</link><guid isPermaLink="true">https://laikmm.top/posts/sui/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;购买一台国外的vps&lt;/h2&gt;
+&lt;p&gt;购买vps然后记录ip和root密码等&lt;/p&gt;
+&lt;p&gt;然后ssh到vps&lt;/p&gt;
+&lt;h2&gt;安装sui&lt;/h2&gt;
+&lt;p&gt;通过一键安装脚本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/master/install.sh)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;记录webui的初始登录信息,webui端口和地址&lt;/p&gt;
+&lt;h2&gt;配置&lt;/h2&gt;
+&lt;p&gt;进入浏览器 输入webui链接，输入登录账号密码&lt;/p&gt;
+&lt;p&gt;进入TLS设置界面，添加一个reality&lt;/p&gt;
+&lt;p&gt;sni和握手服务器填写一个国内可访问的地址，比如bing.com。&lt;/p&gt;
+&lt;p&gt;然后点击key生成按钮生成公私钥&lt;/p&gt;
+&lt;p&gt;点击TLS选项开始uTLS，选择一个浏览器指纹&lt;/p&gt;
+&lt;p&gt;保存&lt;/p&gt;
+&lt;p&gt;进去入站设置添加一个vless，模版选择刚刚的reality模版即可&lt;/p&gt;
+&lt;h2&gt;使用&lt;/h2&gt;
+&lt;p&gt;进入用户管理，添加用户选择节点，然后保存二维码，客户端扫码即可使用(v2rayng/nekobox)&lt;/p&gt;
+</content:encoded></item><item><title>从源码编译Eden</title><link>https://laikmm.top/posts/eden/</link><guid isPermaLink="true">https://laikmm.top/posts/eden/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;从源码编译Eden&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;安装java 环境&lt;/li&gt;
 &lt;li&gt;安装sdkmanager方便安装ndk等&lt;/li&gt;
