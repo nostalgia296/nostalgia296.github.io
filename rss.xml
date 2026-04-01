@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>在termux中使用biome</title><link>https://laikmm.top/posts/biome-android/</link><guid isPermaLink="true">https://laikmm.top/posts/biome-android/</guid><pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;编译&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>从源码编译Eden</title><link>https://laikmm.top/posts/eden/</link><guid isPermaLink="true">https://laikmm.top/posts/eden/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;从源码编译Eden&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;安装java 环境&lt;/li&gt;
+&lt;li&gt;安装sdkmanager方便安装ndk等&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;
+git clone https://git.eden-emu.dev/eden-emu/eden.git
+cd eden
+git submodule update --init --recursive
+cd src/android
+yes | sdkmanager --licenses
+sdkmanager &quot;ndk;25.2.9519653&quot; &quot;cmake;3.22.1&quot;
+chmod +x ./gradlew
+./gradlew assembleRelease --console=plain --info -Dorg.gradle.caching=true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;运行shell脚本&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded></item><item><title>在termux中使用biome</title><link>https://laikmm.top/posts/biome-android/</link><guid isPermaLink="true">https://laikmm.top/posts/biome-android/</guid><pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;编译&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;biome&lt;/code&gt;官方的预构建二进制没有android用的，所以通过包管理器安装biome没有用，需要自己编译，虽然可以直接通过termux编译但是安卓设备性能有限而biome编译性能要求较高所以采用交叉编译。&lt;/p&gt;
 &lt;p&gt;按照常规rust项目交叉编译配置即可，需要注意的是需要在交叉编译前rm掉rust-toolchain.yml文件&lt;/p&gt;
 &lt;blockquote&gt;
