@@ -1,39 +1,17 @@
 ---
 import FriendLinks from "@components/FriendLinks.svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { friendLinkConfig } from "../config";
+import { friendLinkConfig, techStack } from "../config";
 
 const config = friendLinkConfig;
-
-const techStack = [
-	{
-		name: "Netlify",
-		description: "blog使用netlify提供服务支持",
-		url: "https://www.netlify.com",
-		icon: "https://www.netlify.com/favicon/icon.svg",
-		color: "#00C7B7",
-	},
-	{
-		name: "Astro",
-		description: "使用了基于Astro的Fuwari模版",
-		url: "https://astro.build",
-		icon: "https://astro.build/favicon.svg",
-		color: "#FFFDD0",
-	},
-];
 ---
 
 <MainGridLayout title="友链" description="友情链接">
     <div class="flex flex-col gap-6 w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <!-- 友情链接区域 -->
         <div class="card-base z-10 px-9 py-6 relative w-full">
             <h1 class="text-3xl font-bold mb-4 text-[var(--title-color)]">友链</h1>
             <FriendLinks friendLinks={config.links} enabled={config.enable} />
-        </div>
-        
-        <div class="card-base z-10 px-9 py-6 relative w-full">
-            <h2 class="text-2xl font-bold mb-2 text-[var(--title-color)]">技术栈</h2>
-            <p class="text-sm text-[var(--meta-color)] mb-6">本博客项目使用的核心技术</p>
+            <h2 class="text-3xl font-bold mb-4 text-[var(--title-color)]">技术栈</h2>
             <div class="flex flex-col gap-4">
                 {techStack.map((tech) => (
                     <a

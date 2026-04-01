@@ -83,3 +83,20 @@ export const friendLinkConfig: FriendLinkConfig = {
 	enable: true,
 	links: [],
 };
+
+export const techStack = [
+	{
+		name: "Netlify",
+		description: "blog使用netlify提供服务支持",
+		url: "https://www.netlify.com",
+		icon: "https://www.netlify.com/favicon/icon.svg",
+		color: "#00C7B7",
+	},
+	{
+		name: "Astro",
+		description: "使用了基于Astro的Fuwari模版",
+		url: "https://astro.build",
+		icon: "https://astro.build/favicon.svg",
+		color: "#FFFDD0",
+	},
+];
