@@ -554,4 +554,3 @@ export {
   index_default as default,
   pluginCollapsible
 };
-//# sourceMappingURL=index.js.map
