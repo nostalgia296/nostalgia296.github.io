@@ -23,6 +23,7 @@ import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
+import { pluginCollapsible } from 'expressive-code-collapsible';
 
 const base = process.env.BASEURL || "/"
 
@@ -63,7 +64,14 @@ export default defineConfig({
 				pluginCollapsibleSections(),
 				pluginLineNumbers(),
 				pluginLanguageBadge(),
-				pluginCustomCopyButton()
+				pluginCustomCopyButton(),
+				pluginCollapsible({
+                   lineThreshold: 0,
+                   previewLines: 0,
+                   defaultCollapsed: true,
+                   expandButtonText: '展开',
+                   collapseButtonText: '收起'
+          })
 			],
 			defaultProps: {
 				wrap: true,
