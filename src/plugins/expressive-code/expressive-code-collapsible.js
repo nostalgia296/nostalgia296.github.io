@@ -167,92 +167,11 @@ function pluginCollapsible(options = {}) {
         background-color: var(--btn-regular-bg-active, oklch(0.85 0.08 var(--hue)));
       }
 
-      /* Header toggle button (in frame header) */
-      .ec-collapse .frame .header,
-      .ec-collapse .frame figcaption {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-      }
-
-      .ec-collapse .frame.is-terminal .header .title {
-        flex: 1;
-        text-align: center;
-      }
-
-      .ec-collapse__header-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        margin-inline-start: auto;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.8rem;
-        font-weight: 400;
-        background: transparent;
-        border: none;
-        color: var(--btn-content, oklch(0.75 0.1 var(--hue)));
-        opacity: 1;
-        cursor: pointer;
-        transition: opacity 0.2s ease, background-color 0.2s ease;
-        white-space: nowrap;
-        border-radius: var(--radius-large, 1rem);
-      }
-
-      .ec-collapse__header-toggle:hover {
-        background-color: var(--btn-plain-bg-hover, oklch(0.30 0.035 var(--hue)));
-        opacity: 0.9;
-      }
-
-      .ec-collapse__header-toggle:active {
-        background-color: var(--btn-plain-bg-active, oklch(0.27 0.025 var(--hue)));
-      }
-
-      .ec-collapse__header-toggle:focus-visible {
-        opacity: 1;
-        outline: 2px solid var(--primary, oklch(0.75 0.14 var(--hue)));
-        outline-offset: 2px;
-      }
-
-      :root:not(.dark) .ec-collapse__header-toggle {
-        color: var(--btn-content, oklch(0.55 0.12 var(--hue)));
-      }
-
-      :root:not(.dark) .ec-collapse__header-toggle:hover {
-        background-color: var(--btn-plain-bg-hover, oklch(0.95 0.025 var(--hue)));
-      }
-
-      :root:not(.dark) .ec-collapse__header-toggle:active {
-        background-color: var(--btn-plain-bg-active, oklch(0.98 0.01 var(--hue)));
-      }
-
-      .ec-collapse__header-icon {
-        transition: transform 0.2s ease;
-      }
-
-      .ec-collapse--expanded .ec-collapse__header-icon {
-        transform: rotate(180deg);
-      }
-
-      .ec-collapse--collapsed .ec-collapse__header-toggle .ec-collapse__text-expand {
-        display: inline;
-      }
-      .ec-collapse--collapsed .ec-collapse__header-toggle .ec-collapse__text-collapse {
-        display: none;
-      }
-      .ec-collapse--expanded .ec-collapse__header-toggle .ec-collapse__text-expand {
-        display: none;
-      }
-      .ec-collapse--expanded .ec-collapse__header-toggle .ec-collapse__text-collapse {
-        display: inline;
-      }
-
       /* Reduced motion preference */
       @media (prefers-reduced-motion: reduce) {
         .ec-collapse__gradient,
         .ec-collapse__toggle,
-        .ec-collapse__icon,
-        .ec-collapse__header-toggle,
-        .ec-collapse__header-icon {
+        .ec-collapse__icon {
           transition: none;
         }
       }
@@ -313,48 +232,6 @@ function pluginCollapsible(options = {}) {
             )
           ]
         );
-        const headerToggleButton = h(
-          "button",
-          {
-            class: "ec-collapse__header-toggle",
-            type: "button",
-            "aria-expanded": config.defaultCollapsed ? "false" : "true",
-            "aria-controls": blockId
-          },
-          [
-            h(
-              "span",
-              { class: "ec-collapse__text-expand" },
-              config.expandButtonText
-            ),
-            h(
-              "span",
-              { class: "ec-collapse__text-collapse" },
-              config.collapseButtonText
-            ),
-            h(
-              "svg",
-              {
-                class: "ec-collapse__header-icon",
-                xmlns: "http://www.w3.org/2000/svg",
-                width: "14",
-                height: "14",
-                viewBox: "0 0 24 24",
-                "aria-hidden": "true"
-              },
-              [
-                h("path", {
-                  fill: "none",
-                  stroke: "currentColor",
-                  "stroke-width": "2",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  d: "M6 9l6 6 6-6"
-                })
-              ]
-            )
-          ]
-        );
         const gradientOverlay = h("div", {
           class: "ec-collapse__gradient",
           "aria-hidden": "true"
@@ -379,19 +256,6 @@ function pluginCollapsible(options = {}) {
             wrapperClasses.push("ec-collapse--collapsed");
           } else {
             wrapperClasses.push("ec-collapse--expanded");
-          }
-          const figureClasses = figureElement.properties?.className;
-          const classArray = Array.isArray(figureClasses) ? figureClasses : typeof figureClasses === "string" ? [figureClasses] : [];
-          const hasFrame = classArray.some(
-            (c) => typeof c === "string" && (c === "has-title" || c === "is-terminal")
-          );
-          if (hasFrame && figureElement.children) {
-            const headerElement = figureElement.children.find(
-              (child) => child.type === "element" && child.tagName === "figcaption"
-            );
-            if (headerElement && headerElement.type === "element" && headerElement.children) {
-              headerElement.children.push(headerToggleButton);
-            }
           }
           const contentWrapper = h("div", { class: "ec-collapse__content" }, [
             figureElement,
@@ -496,7 +360,7 @@ function pluginCollapsible(options = {}) {
           }
 
           // Update aria-expanded on ALL toggle buttons in this frame
-          const allButtons = frame.querySelectorAll('.ec-collapse__toggle, .ec-collapse__header-toggle');
+          const allButtons = frame.querySelectorAll('.ec-collapse__toggle');
           allButtons.forEach(b => b.setAttribute('aria-expanded', newState === 'expanded' ? 'true' : 'false'));
 
           // Announce state change to screen readers
@@ -505,7 +369,7 @@ function pluginCollapsible(options = {}) {
 
         function initCollapseButtons() {
           // Initialize both overlay and header toggle buttons
-          document.querySelectorAll('.ec-collapse__toggle, .ec-collapse__header-toggle').forEach(btn => {
+          document.querySelectorAll('.ec-collapse__toggle').forEach(btn => {
             if (btn.dataset.init) return;
             btn.dataset.init = 'true';
 
