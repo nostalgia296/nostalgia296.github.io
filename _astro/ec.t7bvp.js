@@ -74,7 +74,7 @@ try{(()=>{function a(e){if(!e)return;let t=e.getAttribute("tabindex")!==null,r=e
           }
 
           // Update aria-expanded on ALL toggle buttons in this frame
-          const allButtons = frame.querySelectorAll('.ec-collapse__toggle, .ec-collapse__header-toggle');
+          const allButtons = frame.querySelectorAll('.ec-collapse__toggle');
           allButtons.forEach(b => b.setAttribute('aria-expanded', newState === 'expanded' ? 'true' : 'false'));
 
           // Announce state change to screen readers
@@ -83,7 +83,7 @@ try{(()=>{function a(e){if(!e)return;let t=e.getAttribute("tabindex")!==null,r=e
 
         function initCollapseButtons() {
           // Initialize both overlay and header toggle buttons
-          document.querySelectorAll('.ec-collapse__toggle, .ec-collapse__header-toggle').forEach(btn => {
+          document.querySelectorAll('.ec-collapse__toggle').forEach(btn => {
             if (btn.dataset.init) return;
             btn.dataset.init = 'true';
 
