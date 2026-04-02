@@ -14,7 +14,7 @@ lang: ''
 1. 安装java 环境
 2. 安装sdkmanager方便安装ndk等
 
-```shell
+```shell collapse
 
 git clone https://git.eden-emu.dev/eden-emu/eden.git
 cd eden
