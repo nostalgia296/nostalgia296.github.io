@@ -4,44 +4,72 @@ import { h } from "@expressive-code/core/hast";
 
 // src/utils.ts
 var DEFAULT_OPTIONS = {
-  lineThreshold: 15,
-  previewLines: 8,
-  defaultCollapsed: true,
-  expandButtonText: "Show more",
-  collapseButtonText: "Show less",
-  expandedAnnouncement: "Code block expanded",
-  collapsedAnnouncement: "Code block collapsed"
+	lineThreshold: 15,
+	previewLines: 8,
+	defaultCollapsed: true,
+	expandButtonText: "Show more",
+	collapseButtonText: "Show less",
+	expandedAnnouncement: "Code block expanded",
+	collapsedAnnouncement: "Code block collapsed",
 };
 function resolveOptions(options = {}) {
-  return {
-    lineThreshold: typeof options.lineThreshold === "number" && options.lineThreshold >= 1 ? options.lineThreshold : DEFAULT_OPTIONS.lineThreshold,
-    previewLines: typeof options.previewLines === "number" && options.previewLines >= 1 ? options.previewLines : DEFAULT_OPTIONS.previewLines,
-    defaultCollapsed: options.defaultCollapsed ?? DEFAULT_OPTIONS.defaultCollapsed,
-    expandButtonText: typeof options.expandButtonText === "string" && options.expandButtonText.trim() ? options.expandButtonText : DEFAULT_OPTIONS.expandButtonText,
-    collapseButtonText: typeof options.collapseButtonText === "string" && options.collapseButtonText.trim() ? options.collapseButtonText : DEFAULT_OPTIONS.collapseButtonText,
-    expandedAnnouncement: typeof options.expandedAnnouncement === "string" && options.expandedAnnouncement.trim() ? options.expandedAnnouncement : DEFAULT_OPTIONS.expandedAnnouncement,
-    collapsedAnnouncement: typeof options.collapsedAnnouncement === "string" && options.collapsedAnnouncement.trim() ? options.collapsedAnnouncement : DEFAULT_OPTIONS.collapsedAnnouncement
-  };
+	return {
+		lineThreshold:
+			typeof options.lineThreshold === "number" && options.lineThreshold >= 1
+				? options.lineThreshold
+				: DEFAULT_OPTIONS.lineThreshold,
+		previewLines:
+			typeof options.previewLines === "number" && options.previewLines >= 1
+				? options.previewLines
+				: DEFAULT_OPTIONS.previewLines,
+		defaultCollapsed:
+			options.defaultCollapsed ?? DEFAULT_OPTIONS.defaultCollapsed,
+		expandButtonText:
+			typeof options.expandButtonText === "string" &&
+			options.expandButtonText.trim()
+				? options.expandButtonText
+				: DEFAULT_OPTIONS.expandButtonText,
+		collapseButtonText:
+			typeof options.collapseButtonText === "string" &&
+			options.collapseButtonText.trim()
+				? options.collapseButtonText
+				: DEFAULT_OPTIONS.collapseButtonText,
+		expandedAnnouncement:
+			typeof options.expandedAnnouncement === "string" &&
+			options.expandedAnnouncement.trim()
+				? options.expandedAnnouncement
+				: DEFAULT_OPTIONS.expandedAnnouncement,
+		collapsedAnnouncement:
+			typeof options.collapsedAnnouncement === "string" &&
+			options.collapsedAnnouncement.trim()
+				? options.collapsedAnnouncement
+				: DEFAULT_OPTIONS.collapsedAnnouncement,
+	};
 }
 function countLines(code) {
-  return code.split("\n").length;
+	return code.split("\n").length;
 }
-function shouldCollapse(codeLineCount, lineThreshold, forceCollapse, forceNoCollapse) {
-  if (forceNoCollapse === true) {
-    return false;
-  }
-  if (forceCollapse === true) {
-    return true;
-  }
-  return codeLineCount >= lineThreshold;
+function shouldCollapse(
+	codeLineCount,
+	lineThreshold,
+	forceCollapse,
+	forceNoCollapse,
+) {
+	if (forceNoCollapse === true) {
+		return false;
+	}
+	if (forceCollapse === true) {
+		return true;
+	}
+	return codeLineCount >= lineThreshold;
 }
 
 // index.ts
 function pluginCollapsible(options = {}) {
-  const config = resolveOptions(options);
-  return definePlugin({
-    name: "Collapsible Code Blocks",
-    baseStyles: `
+	const config = resolveOptions(options);
+	return definePlugin({
+		name: "Collapsible Code Blocks",
+		baseStyles: `
       .ec-collapse {
         position: relative;
       }
@@ -176,115 +204,117 @@ function pluginCollapsible(options = {}) {
         }
       }
     `,
-    hooks: {
-      postprocessRenderedBlock: async (context) => {
-        const forceCollapse = context.codeBlock.metaOptions.getBoolean("collapse");
-        const forceNoCollapse = context.codeBlock.metaOptions.getBoolean("nocollapse");
-        const code = context.codeBlock.code;
-        const lineCount = countLines(code);
-        const shouldCollapseBlock = shouldCollapse(
-          lineCount,
-          config.lineThreshold,
-          forceCollapse,
-          forceNoCollapse
-        );
-        if (!shouldCollapseBlock) return;
-        const blockId = `collapse-${Math.random().toString(36).substring(2, 11)}`;
-        const toggleButton = h(
-          "button",
-          {
-            class: "ec-collapse__toggle",
-            type: "button",
-            "aria-expanded": config.defaultCollapsed ? "false" : "true",
-            "aria-controls": blockId
-          },
-          [
-            h(
-              "span",
-              { class: "ec-collapse__text-expand" },
-              config.expandButtonText
-            ),
-            h(
-              "span",
-              { class: "ec-collapse__text-collapse" },
-              config.collapseButtonText
-            ),
-            h(
-              "svg",
-              {
-                class: "ec-collapse__icon",
-                xmlns: "http://www.w3.org/2000/svg",
-                width: "16",
-                height: "16",
-                viewBox: "0 0 24 24",
-                "aria-hidden": "true"
-              },
-              [
-                h("path", {
-                  fill: "none",
-                  stroke: "currentColor",
-                  "stroke-width": "2",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  d: "M6 9l6 6 6-6"
-                })
-              ]
-            )
-          ]
-        );
-        const gradientOverlay = h("div", {
-          class: "ec-collapse__gradient",
-          "aria-hidden": "true"
-        });
-        const ast = context.renderData.blockAst;
-        let figureElement = null;
-        let isAstTheFigure = false;
-        if (ast.type === "element" && ast.tagName === "figure") {
-          figureElement = ast;
-          isAstTheFigure = true;
-        } else if (ast.children) {
-          const found = ast.children.find(
-            (child) => child.type === "element" && child.tagName === "figure"
-          );
-          if (found && found.type === "element") {
-            figureElement = found;
-          }
-        }
-        if (figureElement && figureElement.type === "element") {
-          const wrapperClasses = ["ec-collapse"];
-          if (config.defaultCollapsed) {
-            wrapperClasses.push("ec-collapse--collapsed");
-          } else {
-            wrapperClasses.push("ec-collapse--expanded");
-          }
-          const contentWrapper = h("div", { class: "ec-collapse__content" }, [
-            figureElement,
-            gradientOverlay
-          ]);
-          const outerWrapper = h(
-            "div",
-            {
-              class: wrapperClasses.join(" "),
-              id: blockId,
-              "data-collapse-preview-lines": config.previewLines.toString(),
-              "data-expanded-announcement": config.expandedAnnouncement,
-              "data-collapsed-announcement": config.collapsedAnnouncement
-            },
-            [contentWrapper, toggleButton]
-          );
-          if (isAstTheFigure) {
-            context.renderData.blockAst = outerWrapper;
-          } else if (ast.children) {
-            const figureIndex = ast.children.indexOf(figureElement);
-            if (figureIndex !== -1) {
-              ast.children[figureIndex] = outerWrapper;
-            }
-          }
-        }
-      }
-    },
-    jsModules: [
-      `
+		hooks: {
+			postprocessRenderedBlock: async (context) => {
+				const forceCollapse =
+					context.codeBlock.metaOptions.getBoolean("collapse");
+				const forceNoCollapse =
+					context.codeBlock.metaOptions.getBoolean("nocollapse");
+				const code = context.codeBlock.code;
+				const lineCount = countLines(code);
+				const shouldCollapseBlock = shouldCollapse(
+					lineCount,
+					config.lineThreshold,
+					forceCollapse,
+					forceNoCollapse,
+				);
+				if (!shouldCollapseBlock) return;
+				const blockId = `collapse-${Math.random().toString(36).substring(2, 11)}`;
+				const toggleButton = h(
+					"button",
+					{
+						class: "ec-collapse__toggle",
+						type: "button",
+						"aria-expanded": config.defaultCollapsed ? "false" : "true",
+						"aria-controls": blockId,
+					},
+					[
+						h(
+							"span",
+							{ class: "ec-collapse__text-expand" },
+							config.expandButtonText,
+						),
+						h(
+							"span",
+							{ class: "ec-collapse__text-collapse" },
+							config.collapseButtonText,
+						),
+						h(
+							"svg",
+							{
+								class: "ec-collapse__icon",
+								xmlns: "http://www.w3.org/2000/svg",
+								width: "16",
+								height: "16",
+								viewBox: "0 0 24 24",
+								"aria-hidden": "true",
+							},
+							[
+								h("path", {
+									fill: "none",
+									stroke: "currentColor",
+									"stroke-width": "2",
+									"stroke-linecap": "round",
+									"stroke-linejoin": "round",
+									d: "M6 9l6 6 6-6",
+								}),
+							],
+						),
+					],
+				);
+				const gradientOverlay = h("div", {
+					class: "ec-collapse__gradient",
+					"aria-hidden": "true",
+				});
+				const ast = context.renderData.blockAst;
+				let figureElement = null;
+				let isAstTheFigure = false;
+				if (ast.type === "element" && ast.tagName === "figure") {
+					figureElement = ast;
+					isAstTheFigure = true;
+				} else if (ast.children) {
+					const found = ast.children.find(
+						(child) => child.type === "element" && child.tagName === "figure",
+					);
+					if (found && found.type === "element") {
+						figureElement = found;
+					}
+				}
+				if (figureElement && figureElement.type === "element") {
+					const wrapperClasses = ["ec-collapse"];
+					if (config.defaultCollapsed) {
+						wrapperClasses.push("ec-collapse--collapsed");
+					} else {
+						wrapperClasses.push("ec-collapse--expanded");
+					}
+					const contentWrapper = h("div", { class: "ec-collapse__content" }, [
+						figureElement,
+						gradientOverlay,
+					]);
+					const outerWrapper = h(
+						"div",
+						{
+							class: wrapperClasses.join(" "),
+							id: blockId,
+							"data-collapse-preview-lines": config.previewLines.toString(),
+							"data-expanded-announcement": config.expandedAnnouncement,
+							"data-collapsed-announcement": config.collapsedAnnouncement,
+						},
+						[contentWrapper, toggleButton],
+					);
+					if (isAstTheFigure) {
+						context.renderData.blockAst = outerWrapper;
+					} else if (ast.children) {
+						const figureIndex = ast.children.indexOf(figureElement);
+						if (figureIndex !== -1) {
+							ast.children[figureIndex] = outerWrapper;
+						}
+					}
+				}
+			},
+		},
+		jsModules: [
+			`
       (function() {
         'use strict';
 
@@ -409,12 +439,9 @@ function pluginCollapsible(options = {}) {
         const debouncedInit = debounce(initCollapseButtons, 100);
         new MutationObserver(debouncedInit).observe(document.body, { childList: true, subtree: true });
       })();
-      `
-    ]
-  });
+      `,
+		],
+	});
 }
 var index_default = pluginCollapsible;
-export {
-  index_default as default,
-  pluginCollapsible
-};
+export { index_default as default, pluginCollapsible };
