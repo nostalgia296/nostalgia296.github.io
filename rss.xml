@@ -29,7 +29,8 @@ cd src/android
 yes | sdkmanager --licenses
 sdkmanager &quot;ndk;25.2.9519653&quot; &quot;cmake;3.22.1&quot;
 chmod +x ./gradlew
-./gradlew assembleRelease --console=plain --info -Dorg.gradle.caching=true
+# 标准版
+./gradlew copyMainlineReleaseOutputs --console=plain --info -Dorg.gradle.caching=true
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol&gt;
 &lt;li&gt;运行shell脚本&lt;/li&gt;
