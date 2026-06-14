@@ -1,9 +1,20 @@
 .expressive-code {
-    .frame {
-        @apply !shadow-none;
-    }
+  .frame {
+    @apply !shadow-none;
+  }
 
-    .title {
-        font-family: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
+  .title {
+    font-family: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+      Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+}
+
+/* Remove any dark overlay/shadow effects in light mode */
+:root:not(.dark) .expressive-code .frame {
+  box-shadow: none !important;
+}
+
+:root:not(.dark) .expressive-code .frame::before,
+:root:not(.dark) .expressive-code .frame::after {
+  display: none !important;
 }
