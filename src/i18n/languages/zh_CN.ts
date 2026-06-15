@@ -1,6 +1,6 @@
 import Key from "../i18nKey";
 import type { Translation } from "../translation";
-
+// 暂友技术栈
 export const zh_CN: Translation = {
 	[Key.home]: "主页",
 	[Key.about]: "关于",
