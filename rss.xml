@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>使用sui搭建vless+reality节点</title><link>https://laikmm.top/posts/sui/</link><guid isPermaLink="true">https://laikmm.top/posts/sui/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;购买一台国外的vps&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>在原生termux使用新版claude</title><link>https://laikmm.top/posts/claude/</link><guid isPermaLink="true">https://laikmm.top/posts/claude/</guid><pubDate>Sun, 02 Aug 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;参考&lt;/h3&gt;
+&lt;p&gt;文中直接使用的垫片库来自:&lt;/p&gt;
+&lt;p&gt;::github{repo=&quot;naiyQAQ/claude-code-termux&quot;}&lt;/p&gt;
+&lt;h3&gt;介绍&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;claude code&lt;/code&gt;在新版将运行时从&lt;code&gt;node&lt;/code&gt;切换到了&lt;code&gt;bun&lt;/code&gt;,并打包成了可执行文件，而官方并没有提供&lt;code&gt;android bionic&lt;/code&gt;平台的打包，因此无法正常使用，好在&lt;code&gt;bun&lt;/code&gt;的二进制打包本质上是把js文件等直接嵌入&lt;code&gt;bun&lt;/code&gt;运行时，因此更好把文件提取出来。&lt;/p&gt;
+&lt;h3&gt;步骤&lt;/h3&gt;
+&lt;p&gt;首先，需要安装安卓平台的&lt;code&gt;bun&lt;/code&gt;,现在官方提供安卓构建，直接在&lt;code&gt;github release&lt;/code&gt;下载即可,接着从claude官网下载新版claude的二进制文件。&lt;/p&gt;
+&lt;p&gt;这里使用的的是unbun项目提取文件，可通过npm下载unbun。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm i -g unbunjs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;接下来解包&lt;code&gt;claude&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;比如说我要把文件解包到&lt;code&gt;bundle&lt;/code&gt;目录:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;unbun extract ./claude ./bundle
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;接下来就可以通过&lt;code&gt;bun&lt;/code&gt;启动&lt;code&gt;cli&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bun ./bundle/src/entrypoints/cli.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;关于N-API库的使用&lt;/h3&gt;
+&lt;p&gt;由于官方内置的2个&lt;code&gt;N-API&lt;/code&gt;绑定库是基于&lt;code&gt;glibc&lt;/code&gt;构建的，所以在&lt;code&gt;bionic&lt;/code&gt;环境无法正常使用。因此要使用&lt;code&gt;glibc-&amp;gt;bionic&lt;/code&gt;的垫片库，然后通过&lt;code&gt;LD_LIBRARY&lt;/code&gt;加载垫片库目录。&lt;/p&gt;
+</content:encoded></item><item><title>使用sui搭建vless+reality节点</title><link>https://laikmm.top/posts/sui/</link><guid isPermaLink="true">https://laikmm.top/posts/sui/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;购买一台国外的vps&lt;/h2&gt;
 &lt;p&gt;购买vps然后记录ip和root密码等&lt;/p&gt;
 &lt;p&gt;然后ssh到vps&lt;/p&gt;
 &lt;h2&gt;安装sui&lt;/h2&gt;
