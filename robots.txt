@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /_astro/
 
-Sitemap: https://laikmm.top/sitemap-index.xml
+Sitemap: https://blog.nnyk.cn/sitemap-index.xml

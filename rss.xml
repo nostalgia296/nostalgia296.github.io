@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://laikmm.top/</link><language>zh_CN</language><item><title>在原生termux使用新版claude</title><link>https://laikmm.top/posts/claude/</link><guid isPermaLink="true">https://laikmm.top/posts/claude/</guid><pubDate>Sun, 02 Aug 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;参考&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Lai</title><description>Yu</description><link>https://blog.nnyk.cn/</link><language>zh_CN</language><item><title>在原生termux使用新版claude</title><link>https://blog.nnyk.cn/posts/claude/</link><guid isPermaLink="true">https://blog.nnyk.cn/posts/claude/</guid><pubDate>Sun, 02 Aug 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;参考&lt;/h3&gt;
 &lt;p&gt;文中直接使用的垫片库来自:&lt;/p&gt;
 &lt;p&gt;::github{repo=&quot;naiyQAQ/claude-code-termux&quot;}&lt;/p&gt;
 &lt;h3&gt;介绍&lt;/h3&gt;
@@ -17,7 +17,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3&gt;关于N-API库的使用&lt;/h3&gt;
 &lt;p&gt;由于官方内置的2个&lt;code&gt;N-API&lt;/code&gt;绑定库是基于&lt;code&gt;glibc&lt;/code&gt;构建的，所以在&lt;code&gt;bionic&lt;/code&gt;环境无法正常使用。因此要使用&lt;code&gt;glibc-&amp;gt;bionic&lt;/code&gt;的垫片库，然后通过&lt;code&gt;LD_LIBRARY&lt;/code&gt;加载垫片库目录。&lt;/p&gt;
-</content:encoded></item><item><title>使用sui搭建vless+reality节点</title><link>https://laikmm.top/posts/sui/</link><guid isPermaLink="true">https://laikmm.top/posts/sui/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;购买一台国外的vps&lt;/h2&gt;
+</content:encoded></item><item><title>使用sui搭建vless+reality节点</title><link>https://blog.nnyk.cn/posts/sui/</link><guid isPermaLink="true">https://blog.nnyk.cn/posts/sui/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;购买一台国外的vps&lt;/h2&gt;
 &lt;p&gt;购买vps然后记录ip和root密码等&lt;/p&gt;
 &lt;p&gt;然后ssh到vps&lt;/p&gt;
 &lt;h2&gt;安装sui&lt;/h2&gt;
@@ -35,7 +35,7 @@
 &lt;p&gt;进去入站设置添加一个vless，模版选择刚刚的reality模版即可&lt;/p&gt;
 &lt;h2&gt;使用&lt;/h2&gt;
 &lt;p&gt;进入用户管理，添加用户选择节点，然后保存二维码，客户端扫码即可使用(v2rayng/nekobox)&lt;/p&gt;
-</content:encoded></item><item><title>从源码编译Eden</title><link>https://laikmm.top/posts/eden/</link><guid isPermaLink="true">https://laikmm.top/posts/eden/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;从源码编译Eden&lt;/h1&gt;
+</content:encoded></item><item><title>从源码编译Eden</title><link>https://blog.nnyk.cn/posts/eden/</link><guid isPermaLink="true">https://blog.nnyk.cn/posts/eden/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;从源码编译Eden&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;安装java 环境&lt;/li&gt;
 &lt;li&gt;安装sdkmanager方便安装ndk等&lt;/li&gt;
@@ -54,7 +54,7 @@ chmod +x ./gradlew
 &lt;ol&gt;
 &lt;li&gt;运行shell脚本&lt;/li&gt;
 &lt;/ol&gt;
-</content:encoded></item><item><title>在termux中使用biome</title><link>https://laikmm.top/posts/biome-android/</link><guid isPermaLink="true">https://laikmm.top/posts/biome-android/</guid><pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;编译&lt;/h1&gt;
+</content:encoded></item><item><title>在termux中使用biome</title><link>https://blog.nnyk.cn/posts/biome-android/</link><guid isPermaLink="true">https://blog.nnyk.cn/posts/biome-android/</guid><pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;编译&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;biome&lt;/code&gt;官方的预构建二进制没有android用的，所以通过包管理器安装biome没有用，需要自己编译，虽然可以直接通过termux编译但是安卓设备性能有限而biome编译性能要求较高所以采用交叉编译。&lt;/p&gt;
 &lt;p&gt;按照常规rust项目交叉编译配置即可，需要注意的是需要在交叉编译前rm掉rust-toolchain.yml文件&lt;/p&gt;
 &lt;blockquote&gt;
